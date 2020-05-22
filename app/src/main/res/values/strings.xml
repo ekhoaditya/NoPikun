@@ -32,4 +32,5 @@
     <string name="theme">Theme</string>
     <string name="dark">Dark</string>
     <string name="light">Light</string>
+    <string name="no_password_saved">No Password Saved</string>
 </resources>

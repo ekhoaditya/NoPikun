@@ -32,6 +32,7 @@ public class PasswordActivity extends AppCompatActivity {
     private EditText edPassword;
     private EditText edUsername;
     private DBHelper sqlDb;
+    ProgressBar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,43 +43,48 @@ public class PasswordActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        passwordTitle = findViewById(R.id.ed_title);
+        Button btnSave = findViewById(R.id.btn_save);
         Intent intent = getIntent();
-        if (!intent.hasExtra(PASSWORD_VALUE_EXTRA)) {
-            return;
-        }
+        edUsername = findViewById( R.id.ed_username );
+
         sqlDb = new DBHelper(this);
 
         final String password = intent.getStringExtra(PASSWORD_VALUE_EXTRA);
         edPassword = findViewById(R.id.ed_password);
         edPassword.setText(password);
 
+        bar = findViewById(R.id.progress_horizontal);
+        bar.setProgress(calculatePasswordStrength(password));
+
+
+        if (!intent.hasExtra(PASSWORD_VALUE_EXTRA)) {
+            return;
+        }
+
+
         edPassword.addTextChangedListener( new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                bar.setProgress(calculatePasswordStrength(edPassword.getText().toString()));
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                calculatePasswordStrength( edPassword.getText().toString());
+                bar.setProgress(calculatePasswordStrength(edPassword.getText().toString()));
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
-                calculatePasswordStrength( edPassword.getText().toString());
+                bar.setProgress(calculatePasswordStrength(edPassword.getText().toString()));
 
             }
         } );
 
-        passwordTitle = findViewById(R.id.ed_title);
-        Button btnSave = findViewById(R.id.btn_save);
 
-        edUsername = findViewById( R.id.ed_username );
-
-        ProgressBar bar = findViewById(R.id.progress_horizontal);
-        bar.setProgress(calculatePasswordStrength(password));
 
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +93,15 @@ public class PasswordActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(passwordTitle.getText())) {
                     Toast.makeText(PasswordActivity.this, getResources().getString(R.string.enter_password_title), Toast.LENGTH_SHORT).show();
                     return;
+                }else if (TextUtils.isEmpty(edUsername.getText())) {
+                    Toast.makeText(PasswordActivity.this, "Username/Email is required", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                else if (TextUtils.isEmpty(edPassword.getText())) {
+                    Toast.makeText(PasswordActivity.this, "Password is required", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String title = passwordTitle.getText().toString();
                 String password = edPassword.getText().toString();
                 String username = edUsername.getText().toString();

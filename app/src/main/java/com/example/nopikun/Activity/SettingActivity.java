@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.nopikun.R;
 
@@ -17,6 +18,7 @@ public class SettingActivity extends AppCompatActivity {
     Switch aSwitch;
     SharedPreferences sp;
     Boolean theme;
+    TextView textTheme;
 
 
     @Override
@@ -25,6 +27,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView( R.layout.activity_setting );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         aSwitch = findViewById(R.id.SwitchTheme);
+        textTheme = findViewById(R.id.SwitchText);
 
         sp = getSharedPreferences("Prefs" , SplashActivity.MODE_PRIVATE);
 
@@ -32,8 +35,10 @@ public class SettingActivity extends AppCompatActivity {
 
         if(theme){
             aSwitch.setChecked( true );
+            textTheme.setText( R.string.dark );
         }else{
             aSwitch.setChecked( false );
+            textTheme.setText( R.string.light );
         }
 
 
@@ -43,10 +48,12 @@ public class SettingActivity extends AppCompatActivity {
                 if (aSwitch.isChecked()) {
                     AppCompatDelegate.setDefaultNightMode( AppCompatDelegate.MODE_NIGHT_YES );
                     sp.edit().putBoolean("theme",aSwitch.isChecked()).commit();
+                    textTheme.setText( R.string.dark );
                     recreate();
                 } else {
                     AppCompatDelegate.setDefaultNightMode( AppCompatDelegate.MODE_NIGHT_NO );
                     sp.edit().putBoolean("theme",false).commit();
+                    textTheme.setText( R.string.light );
                     recreate();
                 }
 

@@ -47,6 +47,12 @@ public class BottomFragment extends BottomSheetDialogFragment {
                 if(TextUtils.isEmpty(edLength.getText())){
                     Toast.makeText(getActivity(), Objects.requireNonNull(getActivity()).getResources().getString(R.string.enter_length), Toast.LENGTH_SHORT).show();
                     return;
+                }else if(edLength.getText().toString().matches("0.*")){
+                    Toast.makeText(getActivity(), "Password Length Invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(!edLength.getText().toString().matches( "(?=.*[0-9]).*")){
+                    Toast.makeText(getActivity(), "Password Length Invalid", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 int length = Integer.parseInt(edLength.getText().toString());
                 String password = String.valueOf(passwordGenerator(length));

@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.nopikun.Adapter.RecyclerAdapter;
 import com.example.nopikun.CustomeClick;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
     RecyclerView recyclerView;
+    TextView textNoPassword;
 
 
     @Override
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_setting:
-
                         Intent intent_to_setting = new Intent( MainActivity.this,SettingActivity.class );
                         startActivity( intent_to_setting );
                         return true;
@@ -54,7 +55,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_main);
 
+        textNoPassword = findViewById( R.id.textNoPassword );
+
+
         dbHelper = new DBHelper(this);
+
+        if(dbHelper.savedPassword().isEmpty()){
+
+            textNoPassword.setVisibility(View.VISIBLE );
+        }
+        else{
+            textNoPassword.setVisibility(View.INVISIBLE );
+        }
+
         recyclerView = findViewById( R.id.recyclerView );
         RecyclerAdapter adapter = new RecyclerAdapter(this, dbHelper.savedPassword(), new CustomeClick() {
             @Override
