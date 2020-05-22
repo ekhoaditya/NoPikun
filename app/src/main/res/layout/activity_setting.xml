@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center|left"
+    android:orientation="vertical"
+    tools:context=".Activity.SettingActivity">
+
+    <Switch
+        android:id="@+id/SwitchTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Theme"
+        android:textOff="Dark"
+        android:textOn="Light"
+        android:textSize="36sp" />
+
+    <Button
+        android:id="@+id/buttonReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="reset"
+        android:text="Reset Pin" />
+</LinearLayout>
