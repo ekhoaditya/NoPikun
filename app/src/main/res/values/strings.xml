@@ -23,4 +23,13 @@
     <string name="create_password">Create Password</string>
     <string name="number_here">number here</string>
     <string name="enter_the_password_length">Enter The Password Length</string>
+    <string name="please_input_your_pin">Please Input Your Pin</string>
+    <string name="please_set_your_pin">Please Set Your Pin</string>
+    <string name="enter_your_username_or_email">Enter your username or email</string>
+    <string name="email_username">Email/Username:</string>
+    <string name="username">Username</string>
+    <string name="reset_pin">Reset Pin</string>
+    <string name="theme">Theme</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
 </resources>
